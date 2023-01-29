@@ -1,0 +1,70 @@
+<div class="checkout-ctr">
+  <div class="dropdown-product-ctr">
+    <div class="dropdowns" [formGroup]="dropDownForm">
+
+      <label>Selection Required</label>
+      <ng-select [items]="cities"
+          [virtualScroll]="true"
+          bindLabel="name"
+          bindValue="id"
+          placeholder="Select city"
+          formControlName="selectedCity"
+          (change)="selectCity()">
+      </ng-select>
+      <ng-select *ngIf="offices.length > 0" [items]="offices"
+          [virtualScroll]="true"
+          bindLabel="name"
+          bindValue="id"
+          placeholder="Select office"
+          formControlName="selectedOffice"
+          (change)="selectOffice()">
+      </ng-select>
+
+      <div *ngIf="selectedOffice" class="office-details-ctr">
+        <h4>Office: {{selectedOffice.nameEn}}</h4>
+        <p>{{selectedOffice.address.fullAddressEn}}</p>
+        <p>{{officeWorkingTime.mondayToFriday}}</p>
+        <p>{{officeWorkingTime.saturday}}</p>
+        <p>{{selectedOffice.code}}</p>
+      </div>
+    </div>
+
+    <div class="product-ctr">
+      <div class="img-ctr">
+        <img src="{{selectedProduct.imgUrl}}" alt="">
+      </div>
+      <div class="product-desc">
+        <h3>{{selectedProduct.mark}} {{selectedProduct.model}}</h3>
+        <p>{{selectedProduct.type}} {{selectedProduct.ml}}ml</p>
+        <p>Price: {{selectedProduct.price}}lv</p>
+        <p *ngIf="deliveryPrice">Delivery price: {{deliveryPrice}}lv</p>
+        <p *ngIf="deliveryPrice">Total price: {{totalPrice}}lv</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- <button (click)="requestCourier()">Request courier</button> -->
+  
+  <div *ngIf="selectedOffice" class="recipient-data-ctr">
+      <h2>Recipient details</h2>
+      <form id="recipientForm" #recipientForm="ngForm" (ngSubmit)="validateLabel(recipientForm)">
+        <fieldset>
+          <label for="name"></label>
+          <input type="text" #nameInput="ngModel" ngModel required name="name" id="name" placeholder="Name">
+  
+          <label for="phoneNumber"></label>
+          <input type="text" #nameInput="ngModel" ngModel required name="phoneNumber" id="phoneNumber" placeholder="Phone number">
+  
+          <button>Calculate delivery price</button>
+        </fieldset>
+      </form>
+      <button id="order-btn" *ngIf="deliveryPrice" (click)="createLabel()">Order</button>
+      <button id="order-btn" *ngIf="shipmentNumber" (click)="getShipmentStatus()">Get shipment status</button>
+      <h3 *ngIf="labelStatus">{{labelStatus}} and the expected delivery date is {{expectedDeliveryDate}}.</h3>
+  </div>
+</div>
+
+
+
+
+

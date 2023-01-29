@@ -1,0 +1,23 @@
+<div class="products">
+    <div class="product-ctr">
+      <div class="img-ctr">
+        <img src="{{product.models[0].img}}" alt="">
+      </div>
+      <div class="product-description-ctr">
+        <h1>{{product.mark}}</h1>
+        <h2>{{product.models[0].title}}</h2>
+        <span>{{product.models[0].type}}</span>
+        <div class="product-cuts-ctr">
+          <div (click)="selectHandler(cut)" *ngFor="let cut of product.models[0].cuts" class="cut-ctr">
+            <span>{{cut.ml}} ml</span>
+            <span><strong>{{cut.price}} lv</strong></span>
+          </div>
+        </div>
+        <button [routerLink]="['/checkout', selected.mark, selected.model, selected.type, selected.ml, selected.price, selected.weight, selected.imgUrl]" *ngIf="selected">Checkout</button>
+        <div class="choosen">
+          <span *ngIf="selected">You'r choose: {{selected.ml}}ml - {{selected.price}}lv</span>
+        </div>
+        
+      </div>
+    </div>
+  </div>

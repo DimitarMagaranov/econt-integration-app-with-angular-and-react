@@ -1,0 +1,54 @@
+.products {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.product-ctr {
+    display: flex;
+    width: 50%;
+    height: 50%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.img-ctr {
+    width: 40%;
+}
+
+.img-ctr img {
+    height: 100%;
+}
+
+.product-cuts-ctr {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    gap: 10px;
+}
+
+.cut-ctr {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    width: 130px;
+    height: 50px;
+    border: 1px solid rgb(205, 205, 205);
+    margin-top: 50px;
+    cursor: pointer;
+}
+
+.product-description-ctr button {
+    margin-top: 20px;
+    padding: 8px 16px;
+    background-color: green;
+    color: white;
+    border-radius: 3px;
+    border: none;
+    margin-left: auto;
+    margin-right: auto;
+    cursor: pointer;
+}
