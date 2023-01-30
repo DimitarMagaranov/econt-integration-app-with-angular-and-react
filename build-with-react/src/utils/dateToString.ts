@@ -1,4 +1,6 @@
-export const loadOfficeWorkingTime = (selectedOffice) => {
+import { IOffice } from "../interfaces/office";
+
+export const loadOfficeWorkingTime = (selectedOffice: IOffice) => {
     const officeNormalBusinessHoursFrom = new Date(selectedOffice.normalBusinessHoursFrom);
     const officeNormalBusinessHoursTo = new Date(selectedOffice.normalBusinessHoursTo);
     const officeHalfDayBusinessHoursFrom = new Date(selectedOffice.halfDayBusinessHoursFrom);
@@ -20,6 +22,6 @@ export const loadOfficeWorkingTime = (selectedOffice) => {
     };
 };
 
-const padTo2Digits = (num) => {
+const padTo2Digits = (num: Number) => {
     return num.toString().padStart(2, '0');
 };

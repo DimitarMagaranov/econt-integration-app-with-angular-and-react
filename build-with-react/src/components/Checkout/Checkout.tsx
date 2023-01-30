@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { FormEvent, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 
 import { createLabelDocument } from '../../utils/label';
@@ -7,37 +7,53 @@ import SelectedOfficeInfo from '../SelectedOfficeInfo/SelectedOfficeInfo';
 import CityList from '../CityList/CityList';
 
 import * as econtService from '../../services/econtService';
+import { IOffice } from '../../interfaces/office';
+import { ILabel } from '../../interfaces/label';
+import { IProduct } from '../../interfaces/product';
+
+interface CustomElements extends HTMLFormControlsCollection {
+    name: HTMLInputElement;
+    phoneNumber: HTMLInputElement;
+  }
+
+  interface CustomForm extends HTMLFormElement {
+    readonly elements: CustomElements;
+  }
 
 const Checkout = () => {
     const location = useLocation();
 
     const [selectedCity, setCity] = useState(0);
-    const [selectedOffice, setOffice] = useState(null);
-    const [selectedProduct, setProduct] = useState(location.state);
+    const [selectedOffice, setOffice] = useState({} as IOffice);
+    const [selectedProduct, setProduct] = useState(location.state as IProduct);
     const [deliveryPrice, setDeliveryPrice] = useState(0);
     const [totalPrice, setTotalPrice] = useState(0);
-    const [label, setLabel] = useState({});
+    const [label, setLabel] = useState({} as ILabel);
     const [shipmentNumber, setShipmentNumber] = useState(0);
     const [expectedDeliveryDate, setExpectedDeliveryDate] = useState('');
     const [labelStatus, setLabelStatus] = useState('');
 
     const onCheckoutSubmitHandler = () => {};
 
-    const validateLabel = (e) => {
+    
+
+    const validateLabel = (e: React.FormEvent<CustomForm>) => {
         e.preventDefault();
 
+        const target = e.currentTarget.elements;
+
         const recipient = {
-            name: e.target.name.value,
-            phones: [e.target.phoneNumber.value]
+            name: target.name.value,
+            phones: [target.phoneNumber.value]
         };
 
-        const label = createLabelDocument(recipient, selectedOffice, selectedProduct);
+        const label = createLabelDocument(recipient, selectedOffice!, selectedProduct) as unknown as ILabel;
         setLabel(() => label);
 
         econtService.createOrValidateLabel(label, 'validate')
         .then(data => {
-            setDeliveryPrice(() => Number(data.label.totalPrice),
-            setTotalPrice(Number(selectedProduct.selectedCut.price) + Number(data.label.totalPrice)));
+            setDeliveryPrice(() => Number(data.label.totalPrice));
+            setTotalPrice(Number(selectedProduct.selectedCut!.price) + Number(data.label.totalPrice));
         })
     }
 
@@ -65,7 +81,7 @@ const Checkout = () => {
             </div>
             <CheckoutSelectedProduct selectedProduct={selectedProduct} totalPrice={totalPrice} deliveryPrice={deliveryPrice} />
 
-            {selectedOffice ? (
+            {selectedOffice.name ? (
                 <div className="recipient-data-ctr">
                     <h2>Recipient details</h2>
                     <form onSubmit={validateLabel}>

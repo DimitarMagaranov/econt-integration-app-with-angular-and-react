@@ -10,4 +10,4 @@ const ProductList = () => {
     );
 };
 
-export default ProductList;
+export {ProductList};

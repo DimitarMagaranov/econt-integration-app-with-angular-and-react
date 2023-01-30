@@ -1,6 +1,14 @@
 import { sender } from "../constants";
+import { IOffice } from "../interfaces/office";
+import { IProduct } from "../interfaces/product";
 
-export const createLabelDocument = (recipient, selectedOffice, selectedProduct) => {
+import {IRecipient} from '../interfaces/recipient'
+
+export const createLabelDocument = (
+        recipient: IRecipient,
+        selectedOffice: IOffice,
+        selectedProduct:  IProduct
+    ) => {
     let date = new Date();
 
     if (date.getHours() > 14) {
@@ -28,7 +36,7 @@ export const createLabelDocument = (recipient, selectedOffice, selectedProduct) 
         },
         packCount: 1,
         shipmentType: 'PACK',
-        weight: selectedProduct.selectedCut.weight,
+        weight: selectedProduct.selectedCut!.weight,
         shipmentDescription: 'парфюм',
         holidayDeliveryDay: 'halfday',
         paymentReceiverMethod: 'cash',
