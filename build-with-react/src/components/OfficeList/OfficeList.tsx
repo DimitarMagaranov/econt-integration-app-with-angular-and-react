@@ -4,6 +4,11 @@ import { IOfficeList } from "../../interfaces/officeList";
 
 import * as econtService from '../../services/econtService';
 
+import Select from '@mui/material/Select';
+import FormControl from '@mui/material/FormControl';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+
 type OfficeListProps = {
     selectedCity: Number,
     setOffice: Dispatch<SetStateAction<IOffice>>
@@ -21,7 +26,7 @@ const OfficeList = ({selectedCity, setOffice}: OfficeListProps) => {
         }
     }, [selectedCity]);
 
-    const onSelectOfficeHandler = (e: ChangeEvent<HTMLSelectElement>) => {
+    const onSelectOfficeHandler = (e: any) => {
         const office = offices.offices.find((x) => x.id == Number(e.target.value))!;
         setOffice(() => office);
     };
@@ -29,13 +34,20 @@ const OfficeList = ({selectedCity, setOffice}: OfficeListProps) => {
     return (
         <>
             {selectedCity != 0 && (
-                <select onChange={onSelectOfficeHandler} name="office">
+                <FormControl sx={{maxWidth: 1024}}>
+                <InputLabel id="office-select">Office</InputLabel>
+                <Select
+                    labelId="office-select"
+                    label="office"
+                    onChange={onSelectOfficeHandler}
+                >
                     {offices.offices?.map((x) => (
-                        <option key={x.id} value={x.id}>
-                            {x.name}
-                        </option>
-                    ))}
-                </select>
+                    <MenuItem key={x.id} value={x.id}>
+                        {x.name}
+                    </MenuItem>
+                ))}
+                </Select>
+            </FormControl>
             )}
         </>
     );

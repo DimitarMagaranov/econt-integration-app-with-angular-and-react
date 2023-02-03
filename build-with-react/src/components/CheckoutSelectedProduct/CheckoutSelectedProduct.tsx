@@ -1,6 +1,12 @@
 import React from 'react';
 import { IProduct } from '../../interfaces/product';
 
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import CardMedia from '@mui/material/CardMedia';
+import Typography from '@mui/material/Typography';
+import { CardActionArea } from '@mui/material';
+
 type CheckoutSelectedProductProps = {
     selectedProduct: IProduct;
     totalPrice: React.ReactNode;
@@ -10,26 +16,32 @@ type CheckoutSelectedProductProps = {
 const CheckoutSelectedProduct = ({ selectedProduct, totalPrice = 0, deliveryPrice = 0 }: CheckoutSelectedProductProps) => {
     const isSetedTotalPrice = totalPrice != undefined && totalPrice != null && totalPrice > 0;
     return (
-        <div className="product-ctr">
-            <div className="img-ctr">
-                <img src={selectedProduct.models[0].img} alt="" />
-            </div>
-            <div className="product-desc">
-                <h3>
-                    {selectedProduct.mark} {selectedProduct.models[0].title}
-                </h3>
-                <p>
-                    {selectedProduct.models[0].type} {selectedProduct.selectedCut!.ml}ml
-                </p>
-                <p>Price: {selectedProduct.selectedCut!.price}lv</p>
-                {isSetedTotalPrice && (
-                    <>
-                        <p>Delivery price: {deliveryPrice}lv</p>
-                        <p>Total price: {totalPrice}lv</p>
-                    </>
-                )}
-            </div>
-        </div>
+        <Card elevation={0} sx={{ height: '100%', border: 'none', boxShadow: 'none' }}>
+            <CardActionArea>
+                <CardMedia component="img" image={selectedProduct.models[0].img} alt="product" sx={{width: '150px', margin: 'auto'}} />
+                <CardContent>
+                    <Typography gutterBottom variant="h5" component="div">
+                        {selectedProduct.mark} {selectedProduct.models[0].title}
+                    </Typography>
+                    <Typography variant="h6" color="text.secondary">
+                        {selectedProduct.models[0].type} {selectedProduct.selectedCut!.ml}ml
+                    </Typography>
+                    <Typography variant="h6" color="text.secondary">
+                        Price: {selectedProduct.selectedCut!.price}lv
+                    </Typography>
+                    {isSetedTotalPrice && (
+                        <>
+                            <Typography variant="h6" color="text.secondary">
+                                Delivery price: {deliveryPrice}lv
+                            </Typography>
+                            <Typography variant="h6" color="text.secondary">
+                                Total price: {totalPrice}lv
+                            </Typography>
+                        </>
+                    )}
+                </CardContent>
+            </CardActionArea>
+        </Card>
     );
 };
 
