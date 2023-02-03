@@ -1,41 +1,53 @@
-import { Link, useNavigate } from "react-router-dom";
-import { useState } from "react";
-import { IProduct } from "../../interfaces/product";
-import { ICut } from "../../interfaces/cut";
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+
 import Button from '@mui/material/Button';
+import { Box, Typography } from '@mui/material';
 
-import {CutList} from "../CutList/CutList";
+import { CutList } from '../CutList/CutList';
 
-const Product = ({data}: {data: IProduct}) => {
+import { IProduct } from '../../interfaces/product';
+import { ICut } from '../../interfaces/cut';
+
+
+const Product = ({ data }: { data: IProduct }) => {
     const navigate = useNavigate();
 
-    const [product, setProduct] = useState<IProduct>({...data, selectedCut: data.models[0].cuts[0]});
+    const [product, setProduct] = useState<IProduct>({ ...data, selectedCut: data.models[0].cuts[0] });
 
     const onNavigateToCheckout = () => {
-        navigate('/checkout', {state: product})
-    }
+        navigate('/checkout', { state: product });
+    };
 
     const onSelectCutHandler = (cut: ICut) => {
-        setProduct(oldProduct => ({
+        setProduct((oldProduct) => ({
             ...oldProduct,
-            selectedCut: cut
-        }))
-    }
+            selectedCut: cut,
+        }));
+    };
 
     return (
-        <div className="product-ctr">
-            <div className="img-ctr">
+        <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '100px' }}>
+            <div>
                 <img src={data.models[0].img} alt="image" />
             </div>
-            <div className="product-description-ctr">
-                <h1>{data.mark}</h1>
-                <h2>{data.models[0].title}</h2>
-                <span>{data.models[0].type}</span>
+            <div>
+                <Box sx={{display: 'flex', gap: '10px', alignItems: 'baseline'}}>
+                    <Typography variant="h4">{data.mark}</Typography>
+                    <Typography variant="h5" color="text.secondary" style={{ marginBottom: '10px' }}>
+                        {data.models[0].title}
+                    </Typography>
+                </Box>
+                <Typography variant="h6" style={{ marginBottom: '10px' }}>
+                    {data.models[0].type}
+                </Typography>
                 <CutList onSelectCutHandler={onSelectCutHandler} cuts={data.models[0].cuts} selectedCut={product.selectedCut!} />
-                <Button variant="contained" color="success" onClick={onNavigateToCheckout}>Checkout</Button>
+                <Button variant="contained" color="success" onClick={onNavigateToCheckout}>
+                    Checkout
+                </Button>
             </div>
-        </div>
-    )
-}
+        </Box>
+    );
+};
 
 export default Product;

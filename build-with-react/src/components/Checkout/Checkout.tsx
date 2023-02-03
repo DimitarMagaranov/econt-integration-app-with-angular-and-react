@@ -1,19 +1,20 @@
-import React, { FormEvent, useState } from 'react';
+import { useState, FormEvent } from 'react';
 import { useLocation } from 'react-router-dom';
 
-import { createLabelDocument } from '../../utils/label';
-import CheckoutSelectedProduct from '../CheckoutSelectedProduct/CheckoutSelectedProduct';
-import SelectedOfficeInfo from '../SelectedOfficeInfo/SelectedOfficeInfo';
-import CityList from '../CityList/CityList';
-
 import * as econtService from '../../services/econtService';
-import { IOffice } from '../../interfaces/office';
-import { ILabel } from '../../interfaces/label';
-import { IProduct } from '../../interfaces/product';
-import OfficeList from '../OfficeList/OfficeList';
+import { createLabelDocument } from '../../utils/label';
 
 import Stack from '@mui/material/Stack';
 import { Box, Button, TextField, Typography } from '@mui/material';
+
+import CheckoutSelectedProduct from '../CheckoutSelectedProduct/CheckoutSelectedProduct';
+import SelectedOfficeInfo from '../SelectedOfficeInfo/SelectedOfficeInfo';
+import CityList from '../CityList/CityList';
+import OfficeList from '../OfficeList/OfficeList';
+
+import { IOffice } from '../../interfaces/office';
+import { ILabel } from '../../interfaces/label';
+import { IProduct } from '../../interfaces/product';
 
 interface CustomElements extends HTMLFormControlsCollection {
     name: HTMLInputElement;
@@ -37,7 +38,7 @@ const Checkout = () => {
     const [expectedDeliveryDate, setExpectedDeliveryDate] = useState('');
     const [labelStatus, setLabelStatus] = useState('');
 
-    const validateLabel = (e: React.FormEvent<CustomForm>) => {
+    const validateLabel = (e: FormEvent<CustomForm>) => {
         e.preventDefault();
 
         const target = e.currentTarget.elements;

@@ -1,14 +1,12 @@
-import * as econtService from '../../services/econtService';
-import { ChangeEvent, Dispatch, SetStateAction, useEffect, useState } from 'react';
-import OfficeList from '../OfficeList/OfficeList';
-import { IOffice } from '../../interfaces/office';
-import { ICity } from '../../interfaces/city';
-import { ICityList } from '../../interfaces/cityList';
+import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 
 import Select from '@mui/material/Select';
 import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
+
+import * as econtService from '../../services/econtService';
+import { ICityList } from '../../interfaces/cityList';
 
 type CityListProps = {
     setCity: Dispatch<SetStateAction<number>>;

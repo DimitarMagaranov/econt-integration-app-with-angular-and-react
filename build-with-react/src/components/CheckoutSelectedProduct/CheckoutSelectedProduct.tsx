@@ -1,11 +1,12 @@
 import React from 'react';
-import { IProduct } from '../../interfaces/product';
 
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import { CardActionArea } from '@mui/material';
+
+import { IProduct } from '../../interfaces/product';
 
 type CheckoutSelectedProductProps = {
     selectedProduct: IProduct;

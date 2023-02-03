@@ -1,6 +1,6 @@
-import { Route, Router, Routes } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 
-import { Box, CssBaseline, Paper, ThemeProvider, Typography } from '@mui/material';
+import { Box } from '@mui/material';
 import { createTheme } from '@mui/material/styles';
 
 import { ProductList } from './components/ProductList/ProductList';
@@ -11,10 +11,6 @@ import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
-import Home from './components/MUI/Home';
-import About from './components/MUI/About';
-import Navbar from './components/MUI/Navbar';
-import Footer from './components/MUI/Footer';
 
 function App() {
     const theme = createTheme({
@@ -64,7 +60,7 @@ function App() {
         //     </Routes>
         // </div>
 
-        <Box sx={{marginTop: '20px'}}>
+        <Box sx={{marginTop: '50px'}}>
             <Routes>
                 <Route path="/" element={<ProductList />} />
                 <Route path="/checkout" element={<Checkout />} />
